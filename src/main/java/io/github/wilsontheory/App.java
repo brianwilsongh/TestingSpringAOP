@@ -18,5 +18,9 @@ public class App
     	System.out.println(catService.getSiamese().getName());
         System.out.println( "Hello World!" );
         catService.getRussianBlue().setName("Vladimir");
+        catService.getCalico().sendMeow("Hello?");
+        try {
+        	catService.getCalico().setName("Ceiling cat");
+        } catch (RuntimeException e){}
     }
 }

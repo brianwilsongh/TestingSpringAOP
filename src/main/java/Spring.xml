@@ -21,6 +21,9 @@
 		<property name="name" value="Indy" />
 	</bean>
 	
+	<bean name="calico" class="io.github.wilsontheory.model.Calico">
+	</bean>
+	
 	<bean name="catService" class="io.github.wilsontheory.service.CatService" autowire="byName" />
 
 	<bean name="loggingAspect" class="io.github.wilsontheory.aspect.LoggingAspect" />
