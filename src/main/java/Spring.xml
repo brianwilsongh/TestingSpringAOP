@@ -23,6 +23,6 @@
 	
 	<bean name="catService" class="io.github.wilsontheory.service.CatService" autowire="byName" />
 
-
+	<bean name="loggingAspect" class="io.github.wilsontheory.aspect.LoggingAspect" />
 
 </beans>
