@@ -30,6 +30,7 @@
     </dependency>
 
 		<dependency>
+		<!-- allows you to apply advice when fields are changed -->
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>1.7.3</version>

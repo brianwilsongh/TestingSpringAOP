@@ -17,5 +17,6 @@ public class App
     	System.out.println(catService.getRussianBlue().getName());
     	System.out.println(catService.getSiamese().getName());
         System.out.println( "Hello World!" );
+        catService.getRussianBlue().setName("Vladimir");
     }
 }

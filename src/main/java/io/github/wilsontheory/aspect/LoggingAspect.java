@@ -1,9 +1,12 @@
 package io.github.wilsontheory.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+
+import io.github.wilsontheory.model.Siamese;
 
 @Aspect
 public class LoggingAspect {
@@ -23,7 +26,10 @@ public class LoggingAspect {
 	}
 	
 	@Before("siameseGetters()")
-	public void printBeforeSetter(){
+	public void printBeforeGetter(JoinPoint joinPoint){
+		//joinPoint is all the places in your code where you can apply advice, just methods in Spring but include fields in Aspectj
+		Siamese siamese = (Siamese) joinPoint.getTarget();
+		System.out.println("JoinPoint target was the Siamese: " + siamese.toString());
 		System.out.println("Advice to print before getting the siamese name");
 	}
 	
@@ -42,5 +48,11 @@ public class LoggingAspect {
 	public void allSiamesePointcutWithinExample(){};
 	
 //	@Pointcut("within(io.github.wilsontheory.model..*") would include all subpackages within model
+	
+	@Before("args(name)")
+	public void stringPassedIntoMethod(String name){
+		//pointcut knows type of argument because of this method's type
+		System.out.println("A setter was called with arg " + name);
+	}
 
 }
