@@ -1,9 +1,11 @@
 package io.github.wilsontheory.aspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -37,6 +39,21 @@ public class LoggingAspect {
 		System.out.println("Advice to print before getting the siamese name");
 	}
 	
+	@Around("siameseGetters()")
+	public Object printAroundSiameseGetters(ProceedingJoinPoint proceedingJoinPoint){
+		//around lets you totally control before/after and execute JoinPoint at leisure, modifying return obj too
+		//return what the pointcut method is returning
+		System.out.println("@Around print right before siamese getter");
+		Object returnObject = null;
+		try {
+			returnObject = proceedingJoinPoint.proceed(); //not mandatory to execute, can have in if/else or something like that
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		System.out.println("@Around print right after siamese getter");
+		return returnObject;
+	}
+	
 	@Before("siameseGetters() && allSiameseMethodsExample()") //good practice
 	public void printCombinedSiamese(){
 		System.out.println("Advice triggered before Siamese getter AND siamese method");
@@ -62,6 +79,7 @@ public class LoggingAspect {
 	
 	@AfterThrowing(pointcut="args(name)", throwing="e")
 	public void afterExceptionThrown(String name, RuntimeException e){
+		//can handle various exceptions here
 		System.out.println("Advice for exception thrown was triggered for " + name + " , exception : " + e.toString());
 	}
 	
@@ -75,5 +93,7 @@ public class LoggingAspect {
 		//Object return type catches all, order of args doesn't matter
 		System.out.println("Calico sent you a meow: " + theMeow + " after receving input : " + input);
 	}
+	
+	//so ultimately, know advice types @Before, @After, @AfterReturning, @AfterThrowing, @Around
 
 }
