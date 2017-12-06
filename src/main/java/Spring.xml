@@ -27,5 +27,16 @@
 	<bean name="catService" class="io.github.wilsontheory.service.CatService" autowire="byName" />
 
 	<bean name="loggingAspect" class="io.github.wilsontheory.aspect.LoggingAspect" />
+	
+	<bean name="loggingAspectXML" class="io.github.wilsontheory.aspect.LoggingAspectXML" />
+	
+	<aop:config>
+		<aop:aspect id="loggingAspectXML" ref="loggingAspectXML">
+			<aop:pointcut id="allGettersXML" expression="execution(* get*())" />
+			<!-- functionally identical to the original  -->
+			<aop:before method="printLogFromXMLConfig" pointcut-ref="allGettersXML" />
+			<!-- can declare pointcut inline (pointcut="execution(* get*())) -->
+		</aop:aspect>
+	</aop:config>
 
 </beans>
