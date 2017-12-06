@@ -94,6 +94,11 @@ public class LoggingAspect {
 		System.out.println("Calico sent you a meow: " + theMeow + " after receving input : " + input);
 	}
 	
+	@After("@annotation(io.github.wilsontheory.aspect.CustomAnnotation)")
+	public void customAnnotationMEssage(JoinPoint jp){
+		System.out.println("@CustomAnnotation was applied to " + jp.getSignature());
+	}
+	
 	//so ultimately, know advice types @Before, @After, @AfterReturning, @AfterThrowing, @Around
 
 }
